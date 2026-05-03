@@ -1,0 +1,36 @@
+body {
+    background-color: #f4f6f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.hero .btn-group {
+    margin-top: 30px;
+}
+
+.hero a {
+    margin: 10px;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}

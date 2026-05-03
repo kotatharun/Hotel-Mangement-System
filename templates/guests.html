@@ -1,31 +1,66 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Guests CRUD</h2>
 
-<h3>Add Guest</h3>
-<form method="POST" action="/guests/add">
-    <input type="text" name="guest_name" placeholder="Guest Name" required>
-    <input type="email" name="guest_email" placeholder="Guest Email" required>
-    <input type="text" name="guest_phone" placeholder="Guest Phone" required>
-    <button type="submit">Add Guest</button>
-</form>
+<h2 class="mb-4">Guests CRUD</h2>
 
-<hr>
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-dark text-white">
+        Add New Guest
+    </div>
 
-<h3>Guest List</h3>
+    <div class="card-body">
+        <form method="POST" action="/guests/add" class="row g-3">
+            <div class="col-md-4">
+                <input type="text" name="guest_name" class="form-control" placeholder="Guest Name" required>
+            </div>
 
-{% for g in guests %}
-    <form method="POST" action="/guests/update/{{ g.guest_id }}">
-        <p>
-            ID: {{ g.guest_id }}
-            <input type="text" name="guest_name" value="{{ g.guest_name }}" required>
-            <input type="email" name="guest_email" value="{{ g.guest_email }}" required>
-            <input type="text" name="guest_phone" value="{{ g.guest_phone }}" required>
-            <button type="submit">Update</button>
-            <a href="/guests/delete/{{ g.guest_id }}">Delete</a>
-        </p>
-    </form>
-{% endfor %}
+            <div class="col-md-4">
+                <input type="email" name="guest_email" class="form-control" placeholder="Guest Email" required>
+            </div>
+
+            <div class="col-md-3">
+                <input type="text" name="guest_phone" class="form-control" placeholder="Guest Phone" required>
+            </div>
+
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary w-100">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-dark text-white">
+        Guest List
+    </div>
+
+    <div class="card-body">
+        <table class="table table-hover align-middle">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+
+            {% for g in guests %}
+            <tr>
+                <form method="POST" action="/guests/update/{{ g.guest_id }}">
+                    <td>{{ g.guest_id }}</td>
+                    <td><input type="text" name="guest_name" value="{{ g.guest_name }}" class="form-control" required></td>
+                    <td><input type="email" name="guest_email" value="{{ g.guest_email }}" class="form-control" required></td>
+                    <td><input type="text" name="guest_phone" value="{{ g.guest_phone }}" class="form-control" required></td>
+                    <td>
+                        <button type="submit" class="btn btn-success btn-sm">Update</button>
+                        <a href="/guests/delete/{{ g.guest_id }}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </form>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 
 {% endblock %}

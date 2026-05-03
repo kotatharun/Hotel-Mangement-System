@@ -1,95 +1,151 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Reservations CRUD + Transaction</h2>
 
-<h3>Add Reservation Only</h3>
-<form method="POST" action="/reservations/add">
-    <select name="guest_id" required>
-        <option value="">Select Guest</option>
-        {% for g in guests %}
-            <option value="{{ g.guest_id }}">{{ g.guest_name }}</option>
-        {% endfor %}
-    </select>
+<h2 class="mb-4">Reservations CRUD + Transaction</h2>
 
-    <select name="room_id" required>
-        <option value="">Select Room</option>
-        {% for room in rooms %}
-            <option value="{{ room.room_id }}">Room {{ room.room_number }} - {{ room.room_type }}</option>
-        {% endfor %}
-    </select>
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-dark text-white">
+        Add Reservation
+    </div>
 
-    <input type="date" name="check_in_date" required>
-    <input type="date" name="check_out_date" required>
+    <div class="card-body">
+        <form method="POST" action="/reservations/add" class="row g-3">
 
-    <select name="reservation_status">
-        <option value="Booked">Booked</option>
-        <option value="Checked-In">Checked-In</option>
-        <option value="Checked-Out">Checked-Out</option>
-        <option value="Cancelled">Cancelled</option>
-    </select>
+            <div class="col-md-3">
+                <select name="guest_id" class="form-select" required>
+                    <option value="">Select Guest</option>
+                    {% for g in guests %}
+                        <option value="{{ g.guest_id }}">{{ g.guest_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-    <button type="submit">Add Reservation</button>
-</form>
+            <div class="col-md-3">
+                <select name="room_id" class="form-select" required>
+                    <option value="">Select Room</option>
+                    {% for room in rooms %}
+                        <option value="{{ room.room_id }}">Room {{ room.room_number }} - {{ room.room_type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-<hr>
+            <div class="col-md-2">
+                <input type="date" name="check_in_date" class="form-control" required>
+            </div>
 
-<h3>Book With Payment Transaction</h3>
-<p>This creates a reservation, adds a payment, and updates room status in one SQL transaction.</p>
+            <div class="col-md-2">
+                <input type="date" name="check_out_date" class="form-control" required>
+            </div>
 
-<form method="POST" action="/reservations/book-with-payment">
-    <select name="guest_id" required>
-        <option value="">Select Guest</option>
-        {% for g in guests %}
-            <option value="{{ g.guest_id }}">{{ g.guest_name }}</option>
-        {% endfor %}
-    </select>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Add</button>
+            </div>
 
-    <select name="room_id" required>
-        <option value="">Select Room</option>
-        {% for room in rooms %}
-            <option value="{{ room.room_id }}">Room {{ room.room_number }} - {{ room.room_type }}</option>
-        {% endfor %}
-    </select>
+            <input type="hidden" name="reservation_status" value="Booked">
+        </form>
+    </div>
+</div>
 
-    <input type="date" name="check_in_date" required>
-    <input type="date" name="check_out_date" required>
-    <input type="number" step="0.01" name="payment_amount" placeholder="Payment Amount" required>
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-success text-white">
+        Book With Payment Transaction
+    </div>
 
-    <select name="payment_method">
-        <option value="Cash">Cash</option>
-        <option value="Credit Card">Credit Card</option>
-        <option value="Debit Card">Debit Card</option>
-        <option value="Online">Online</option>
-    </select>
+    <div class="card-body">
+        <form method="POST" action="/reservations/book-with-payment" class="row g-3">
 
-    <button type="submit">Book + Pay</button>
-</form>
+            <div class="col-md-3">
+                <select name="guest_id" class="form-select" required>
+                    <option value="">Select Guest</option>
+                    {% for g in guests %}
+                        <option value="{{ g.guest_id }}">{{ g.guest_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-<hr>
+            <div class="col-md-3">
+                <select name="room_id" class="form-select" required>
+                    <option value="">Select Room</option>
+                    {% for room in rooms %}
+                        <option value="{{ room.room_id }}">Room {{ room.room_number }} - {{ room.room_type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-<h3>Reservations List</h3>
+            <div class="col-md-2">
+                <input type="date" name="check_in_date" class="form-control" required>
+            </div>
 
-{% for r in reservations %}
-    <form method="POST" action="/reservations/update/{{ r.reservation_id }}">
-        <p>
-            ID: {{ r.reservation_id }} |
-            {{ r.guest_name }} |
-            Room {{ r.room_number }} |
-            {{ r.check_in_date }} to {{ r.check_out_date }} |
-            Nights: {{ r.total_nights }}
+            <div class="col-md-2">
+                <input type="date" name="check_out_date" class="form-control" required>
+            </div>
 
-            <select name="reservation_status">
-                <option value="Booked" {% if r.reservation_status == "Booked" %}selected{% endif %}>Booked</option>
-                <option value="Checked-In" {% if r.reservation_status == "Checked-In" %}selected{% endif %}>Checked-In</option>
-                <option value="Checked-Out" {% if r.reservation_status == "Checked-Out" %}selected{% endif %}>Checked-Out</option>
-                <option value="Cancelled" {% if r.reservation_status == "Cancelled" %}selected{% endif %}>Cancelled</option>
-            </select>
+            <div class="col-md-2">
+                <input type="number" step="0.01" name="payment_amount" class="form-control" placeholder="Amount" required>
+            </div>
 
-            <button type="submit">Update Status</button>
-            <a href="/reservations/delete/{{ r.reservation_id }}">Delete</a>
-        </p>
-    </form>
-{% endfor %}
+            <div class="col-md-3">
+                <select name="payment_method" class="form-select">
+                    <option value="Cash">Cash</option>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Debit Card">Debit Card</option>
+                    <option value="Online">Online</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success w-100">Book + Pay</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-dark text-white">
+        Reservations List
+    </div>
+
+    <div class="card-body">
+        <table class="table table-hover align-middle">
+            <tr>
+                <th>ID</th>
+                <th>Guest</th>
+                <th>Room</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+                <th>Nights</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+            {% for r in reservations %}
+            <tr>
+                <form method="POST" action="/reservations/update/{{ r.reservation_id }}">
+                    <td>{{ r.reservation_id }}</td>
+                    <td>{{ r.guest_name }}</td>
+                    <td>{{ r.room_number }}</td>
+                    <td>{{ r.check_in_date }}</td>
+                    <td>{{ r.check_out_date }}</td>
+                    <td>{{ r.total_nights }}</td>
+                    <td>
+                        <select name="reservation_status" class="form-select">
+                            <option value="Booked" {% if r.reservation_status == "Booked" %}selected{% endif %}>Booked</option>
+                            <option value="Checked-In" {% if r.reservation_status == "Checked-In" %}selected{% endif %}>Checked-In</option>
+                            <option value="Checked-Out" {% if r.reservation_status == "Checked-Out" %}selected{% endif %}>Checked-Out</option>
+                            <option value="Cancelled" {% if r.reservation_status == "Cancelled" %}selected{% endif %}>Cancelled</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-success btn-sm">Update</button>
+                        <a href="/reservations/delete/{{ r.reservation_id }}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </form>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 
 {% endblock %}

@@ -1,16 +1,67 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Summary Dashboard</h2>
 
-<p>Total Guests: {{ guests }}</p>
-<p>Total Reservations: {{ reservations }}</p>
-<p>Total Paid Revenue: ${{ revenue }}</p>
-<p>Average Room Rate: ${{ avg_rate }}</p>
+<h2 class="mb-4">Summary Dashboard</h2>
 
-<h3>Reservations by Status</h3>
-{% for row in status_counts %}
-    <p>{{ row.reservation_status }}: {{ row.total }}</p>
-{% endfor %}
+<div class="row g-4">
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6 class="text-muted">Total Guests</h6>
+                <h2>{{ guests }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6 class="text-muted">Reservations</h6>
+                <h2>{{ reservations }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6 class="text-muted">Paid Revenue</h6>
+                <h2>${{ revenue }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <h6 class="text-muted">Avg Room Rate</h6>
+                <h2>${{ avg_rate }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card shadow-sm border-0 mt-4">
+    <div class="card-header bg-dark text-white">
+        Reservations by Status
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr>
+                <th>Status</th>
+                <th>Total</th>
+            </tr>
+            {% for row in status_counts %}
+            <tr>
+                <td>{{ row.reservation_status }}</td>
+                <td>{{ row.total }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 
 {% endblock %}
