@@ -1,0 +1,6 @@
+room_id,room_number,room_type,nightly_rate,room_status
+1,201,Single,80.00,Available
+2,202,Double,120.00,Occupied
+3,203,Suite,200.00,Available
+4,204,Single,90.00,Maintenance
+5,205,Double,130.00,Available

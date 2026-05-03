@@ -1,0 +1,6 @@
+reservation_id,guest_id,room_id,check_in_date,check_out_date,reservation_date,reservation_status
+1,1,1,2026-04-10,2026-04-12,2026-04-01,Booked
+2,2,2,2026-04-11,2026-04-13,2026-04-02,Checked-In
+3,3,3,2026-04-14,2026-04-16,2026-04-03,Booked
+4,4,4,2026-04-15,2026-04-17,2026-04-04,Cancelled
+5,5,5,2026-04-18,2026-04-20,2026-04-05,Booked

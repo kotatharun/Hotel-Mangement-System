@@ -1,0 +1,6 @@
+payment_id,reservation_id,payment_date,payment_amount,payment_method,payment_status
+1,1,2026-04-01,160.00,"Credit Card",Paid
+2,2,2026-04-02,240.00,"Debit Card",Paid
+3,3,2026-04-03,400.00,Online,Pending
+4,4,2026-04-04,180.00,Cash,Failed
+5,5,2026-04-05,260.00,"Credit Card",Paid
