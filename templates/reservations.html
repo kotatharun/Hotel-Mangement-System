@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Reservations</h2>
+
+{% for r in reservations %}
+    <p>
+        {{ r.guest_name }} |
+        Room {{ r.room_number }} |
+        {{ r.check_in_date }} to {{ r.check_out_date }} |
+        Nights: {{ r.total_nights }} |
+        Status: {{ r.reservation_status }}
+    </p>
+{% endfor %}
+
+{% endblock %}
