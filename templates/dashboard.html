@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Dashboard</h2>
+
+<p>Total Guests: {{ guests }}</p>
+<p>Total Reservations: {{ reservations }}</p>
+<p>Total Revenue: ${{ revenue }}</p>
+<p>Average Room Rate: ${{ avg_rate }}</p>
+{% endblock %}
