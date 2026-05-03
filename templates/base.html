@@ -7,11 +7,19 @@
     <h1>Hotel Management System</h1>
 
     <a href="/">Home</a> |
-    <a href="/guests">Guests</a> |
-    <a href="/reservations">Reservations</a> |
+    <a href="/guests">Guests CRUD</a> |
+    <a href="/reservations">Reservations CRUD</a> |
     <a href="/dashboard">Dashboard</a>
 
     <hr>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
     {% block content %}{% endblock %}
 </body>

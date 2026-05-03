@@ -24,6 +24,13 @@ def dashboard():
     cursor.execute("SELECT AVG(nightly_rate) AS avg_rate FROM Rooms")
     avg_rate = cursor.fetchone()["avg_rate"]
 
+    cursor.execute("""
+        SELECT reservation_status, COUNT(*) AS total
+        FROM Reservations
+        GROUP BY reservation_status
+    """)
+    status_counts = cursor.fetchall()
+
     db.close()
 
     return render_template(
@@ -31,5 +38,6 @@ def dashboard():
         guests=guests,
         reservations=reservations,
         revenue=revenue,
-        avg_rate=avg_rate
+        avg_rate=avg_rate,
+        status_counts=status_counts
     )

@@ -1,10 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Guests</h2>
+<h2>Guests CRUD</h2>
+
+<h3>Add Guest</h3>
+<form method="POST" action="/guests/add">
+    <input type="text" name="guest_name" placeholder="Guest Name" required>
+    <input type="email" name="guest_email" placeholder="Guest Email" required>
+    <input type="text" name="guest_phone" placeholder="Guest Phone" required>
+    <button type="submit">Add Guest</button>
+</form>
+
+<hr>
+
+<h3>Guest List</h3>
 
 {% for g in guests %}
-    <p>{{ g.guest_name }} - {{ g.guest_email }} - {{ g.guest_phone }}</p>
+    <form method="POST" action="/guests/update/{{ g.guest_id }}">
+        <p>
+            ID: {{ g.guest_id }}
+            <input type="text" name="guest_name" value="{{ g.guest_name }}" required>
+            <input type="email" name="guest_email" value="{{ g.guest_email }}" required>
+            <input type="text" name="guest_phone" value="{{ g.guest_phone }}" required>
+            <button type="submit">Update</button>
+            <a href="/guests/delete/{{ g.guest_id }}">Delete</a>
+        </p>
+    </form>
 {% endfor %}
 
 {% endblock %}
